@@ -1,0 +1,48 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/m-0-orchestration-openapi.json + https://docs.m0.org/api-reference/introduction
+api: M0 Orchestration API
+auth:
+  style: api-key
+  location: header
+  parameter: x-api-key
+  provisioning: Keys are issued by the M0 team via the contact form (no self-serve signup).
+  note: The Protocol GraphQL API instead expects the API key in the Authorization header.
+idempotency:
+  supported: false
+  note: >-
+    No HTTP Idempotency-Key. Write safety is anchored on-chain - each order carries
+    a nonce and the returned TransactionPayload is signed/broadcast by the caller.
+pagination:
+  style: offset-limit
+  params:
+  - limit
+  - offset
+  response_fields:
+  - orders
+  - total
+  - limit
+  - offset
+  applies_to:
+  - GET /orders
+request_id:
+  field: requestId
+  where: Present in every error body (commons.ErrorBody) and in PermitQuoteResponse/PermitBuildResponse.
+  purpose: Correlates a client call with server logs; include when filing support tickets.
+error_envelope:
+  shape: '{ code, message, requestId }'
+  media_type: application/json
+  branch_on: code
+  cross_ref: errors/m-0-problem-types.yml
+versioning:
+  style: uri-path
+  current: v1
+  cross_ref: lifecycle/m-0-lifecycle.yml
+rate_limiting:
+  signaling: Not documented; no rate-limit headers declared in the OpenAPI.
+multichain:
+  note: >-
+    Requests and payloads are chain-aware. Chain is a first-class enum (Ethereum,
+    Solana, Arbitrum, Base, Linea, HyperEVM, BinanceSmartChain, Plasma, Soneium,
+    plus testnets). TransactionPayload is discriminated evm|svm; always read
+    payload.chain (and payload.chainId for EVM) to pick the broadcast target.

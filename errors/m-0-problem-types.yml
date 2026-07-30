@@ -1,0 +1,86 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/m-0-orchestration-openapi.json (ErrorCode enum + per-operation error tables)
+format: custom-envelope
+envelope:
+  description: >-
+    Every error response returns the commons.ErrorBody shape. It is NOT
+    application/problem+json (RFC 9457); it is a stable custom envelope.
+    Clients MUST branch on the machine-readable `code`, not the HTTP status,
+    because multiple errors may share a status as the API evolves.
+  media_type: application/json
+  fields:
+    code: Stable machine-readable identifier (see problem_types below)
+    message: Human-readable description, safe to surface in UI
+    requestId: Per-request correlation id; include when filing support tickets
+problem_types:
+- code: QuoteError
+  http_status: 500
+  operation: quote_quote
+  title: Quote computation failed
+  remediation: Unexpected internal failure while computing or simulating quotes; may succeed on retry.
+- code: BadQuoteRequest
+  http_status: 400
+  operation: quote_quote
+  title: Malformed quote request
+  remediation: Missing/invalid fields, source == destination, both include and exclude set, or an unknown asset.
+- code: NoQuotesAvailable
+  http_status: 404
+  operation: quote_quote
+  title: No quotes available
+  remediation: Structurally valid, but no provider could quote this route + amount.
+- code: BadOrderRequest
+  http_status: 400
+  operation: order_getOrder, order_cancelOrder
+  title: Malformed order request
+  remediation: Malformed path params - unknown chain, bad orderId, or unsupported caller.
+- code: OrderNotFound
+  http_status: 404
+  operation: order_getOrder, order_cancelOrder
+  title: Order not found
+  remediation: No order with this id exists on-chain.
+- code: OrderNotCancellable
+  http_status: 409
+  operation: order_cancelOrder
+  title: Order not cancellable
+  remediation: The order is already in a terminal state (CANCELLED / COMPLETED).
+- code: CancelOrderError
+  http_status: 500
+  operation: order_cancelOrder
+  title: Cancel build failed
+  remediation: Unexpected failure building the cancel transaction; may succeed on retry.
+- code: BadTopologyRequest
+  http_status: 400
+  operation: topology_getRoutes
+  title: Malformed topology request
+  remediation: Invalid query params - only one of sourceChain / sourceAddress, or an unknown asset.
+- code: BadPermitRequest
+  http_status: 400
+  operation: permit_permitQuote, permit_permitBuild
+  title: Malformed permit request
+  remediation: Missing/invalid fields, source == destination, an unknown asset, or a recipe that fails internal consistency.
+- code: PermitNotSupported
+  http_status: 404
+  operation: permit_permitQuote
+  title: Permit route not supported
+  remediation: Structurally valid, but no permit-capable path exists for this route.
+- code: PermitExpired
+  http_status: 410
+  operation: permit_permitBuild
+  title: Permit expired
+  remediation: A recipe's permit deadline has already passed; request a fresh /permit/quote.
+- code: InvalidPermitSignature
+  http_status: 422
+  operation: permit_permitBuild
+  title: Invalid permit signature
+  remediation: Signature does not recover to the permit owner; re-sign the recipe typedData.
+- code: PermitQuoteError
+  http_status: 500
+  operation: permit_permitQuote
+  title: Permit quote failed
+  remediation: Unexpected internal failure while computing permit quotes.
+- code: PermitBuildError
+  http_status: 500
+  operation: permit_permitBuild
+  title: Permit build failed
+  remediation: Unexpected internal failure while encoding the payloads.

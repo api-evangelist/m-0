@@ -1,0 +1,42 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enrichment overlay for the M0 Orchestration API
+  version: 1.0.0
+x-provenance:
+  generated: '2026-07-20'
+  method: generated
+  source: openapi/m-0-orchestration-openapi.json
+extends: ../openapi/m-0-orchestration-openapi.json
+actions:
+- target: $.info
+  description: Record enrichment context and canonical contact/docs on the info object.
+  update:
+    x-enrichment-source: API Evangelist enrichment pipeline (local-v1)
+    x-docs: https://docs.m0.org/api-reference/introduction
+    x-key-provisioning: https://m0.org/contact-us
+- target: $.info
+  description: Note the error-handling convention (branch on code, not status).
+  update:
+    x-error-envelope:
+      shape: '{ code, message, requestId }'
+      branch_on: code
+      catalog: errors/m-0-problem-types.yml
+- target: $.servers
+  description: Tag environments so consumers can distinguish prod vs non-prod.
+  update:
+  - url: https://gateway.m0.xyz/v1/orchestration
+    description: mainnet (production)
+    x-environment: production
+  - url: https://gateway.stage.m0.xyz/v1/orchestration
+    description: stage (non-production)
+    x-environment: staging
+  - url: https://gateway.dev.m0.xyz/v1/orchestration
+    description: devnet (non-production)
+    x-environment: development
+- target: $.paths['/orders'].get
+  description: Document the offset/limit pagination convention on the list endpoint.
+  update:
+    x-pagination:
+      style: offset-limit
+      params: [limit, offset]
+      response_fields: [orders, total, limit, offset]

@@ -1,0 +1,104 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/m-0-orchestration-openapi.json ($ref graph + id-reference fields)
+api: M0 Orchestration API
+entities:
+- name: Order
+  description: Full on-chain order state plus indexer enrichment (getOrder).
+  key: orderId
+- name: OrderSummary
+  description: Compact indexer-fed order shape returned by the list endpoint.
+  key: orderId
+- name: Fill
+  description: A single fill event recorded by the indexer for an order.
+- name: Quote
+  description: A routing quote with executable transaction payloads.
+- name: PermitQuote
+  description: A quote whose approvals are satisfied by signing EIP-2612 permits.
+- name: Route
+  description: A source -> destination pair of AssetAddress.
+- name: AssetAddress
+  description: A (chain, address) tuple identifying a token on a chain.
+- name: Asset
+  description: A supported token with symbol, decimals, chain, and m0Extension flag.
+- name: Payload
+  description: One executable leg (evm|svm TransactionPayload) of a quote.
+- name: TopologyRoute
+  description: A known source->destination route with per-provider usage stats.
+relationships:
+- from: Order
+  to: Fill
+  type: has_many
+  via: fills
+- from: Order
+  to: AssetAddress
+  type: belongs_to
+  via: tokenIn/tokenOut + originChainId/destChainId
+- from: OrderSummary
+  to: Order
+  type: has_one
+  via: orderId
+- from: Quote
+  to: Payload
+  type: has_many
+  via: payloads
+- from: Quote
+  to: Route
+  type: belongs_to
+  via: route
+- from: PermitQuote
+  to: PermitRecipe
+  type: has_many
+  via: recipes
+- from: Route
+  to: AssetAddress
+  type: has_one
+  via: source
+- from: Route
+  to: AssetAddress
+  type: has_one
+  via: destination
+- from: TopologyRoute
+  to: TopologyRouteProvider
+  type: has_many
+  via: providers
+- from: Asset
+  to: Chain
+  type: belongs_to
+  via: chain
+enums:
+  OrderStatus:
+  - CREATED
+  - COMPLETED
+  - CANCELLED
+  Chain:
+  - Ethereum
+  - Solana
+  - Arbitrum
+  - Base
+  - Linea
+  - Sepolia
+  - BaseSepolia
+  - ArbitrumSepolia
+  - HyperEVM
+  - BinanceSmartChain
+  - Mantra
+  - Plasma
+  - SolanaDevnet
+  - Soneium
+  - Citrea
+  - Fluent
+  - Moca
+  - Rise
+  Providers:
+  - m-swap-facility
+  - m-wormhole-portal
+  - m-hyperlane-portal
+  - m-portal
+  - wormhole-cctp
+  - jupiter
+  - raydium
+  - mayan-swift
+  - kyber-swap
+  - limit-order
+  - uniswap-v3

@@ -1,0 +1,36 @@
+generated: '2026-07-20'
+method: searched
+source: openapi/m-0-orchestration-openapi.json + https://docs.m0.org/api-reference/protocol/changelog
+versioning:
+  style: uri-path
+  current: v1
+  evidence: REST base path https://gateway.m0.xyz/v1/orchestration carries an explicit /v1/ segment.
+deprecation:
+  policy: >-
+    Deprecations are announced in the dated Protocol API changelog with a named
+    replacement query and an explicit sunset date. Consumers are told to migrate
+    before the sunset.
+  headers:
+    sunset: RFC 8594 sunset dates are published in the changelog (HTTP Sunset header not confirmed).
+  examples:
+  - deprecated: hyperliquid_holder
+    replacement: usdhl_hyperevm_stablecoins
+    announced: '2025-12-18'
+    sunset: '2026-01-08'
+  - deprecated: SolanaBridgeEvents
+    replacement: solanaSupply
+    announced: '2025-12-18'
+    sunset: '2026-01-08'
+status_page:
+  found: false
+  note: No status/uptime page discovered on m0.org, docs.m0.org, or a status.* subdomain.
+sla:
+  found: false
+  note: No published SLA located in developer docs.
+environments:
+- name: mainnet
+  url: https://gateway.m0.xyz/v1/orchestration
+- name: stage
+  url: https://gateway.stage.m0.xyz/v1/orchestration
+- name: devnet
+  url: https://gateway.dev.m0.xyz/v1/orchestration

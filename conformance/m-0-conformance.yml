@@ -1,0 +1,38 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/m-0-orchestration-openapi.json + docs.m0.org changelog (deprecation policy)
+standards:
+- id: oauth2
+  conforms: false
+  evidence: No oauth2 securityScheme; auth is a single apiKey (x-api-key header).
+- id: oidc
+  conforms: false
+  evidence: No openIdConnect scheme or discovery document (.well-known/openid-configuration = 404).
+- id: rfc9457
+  conforms: false
+  evidence: >-
+    Errors use a custom commons.ErrorBody envelope ({code,message,requestId}) with
+    application/json, not application/problem+json. Machine-readable code is present
+    but it is not the RFC 9457 problem+json shape.
+- id: rfc8594
+  conforms: true
+  evidence: >-
+    Protocol API changelog publishes deprecations with explicit sunset dates
+    (e.g. hyperliquid_holder and SolanaBridgeEvents deprecated 2025-12-18,
+    "Sunsetting by Jan 8, 2026"), matching RFC 8594 deprecation/sunset practice.
+- id: pagination
+  conforms: true
+  evidence: >-
+    GET /orders supports limit + offset query params and returns
+    OrdersResponse {orders,total,limit,offset} (offset/limit pagination).
+- id: idempotency
+  conforms: false
+  evidence: >-
+    No Idempotency-Key header or idempotent-write mechanism is declared. Order
+    replay-safety is handled on-chain via order nonces, not an HTTP idempotency key.
+- id: json:api
+  conforms: false
+  evidence: Plain JSON resources; not JSON:API media type or structure.
+- id: fapi
+  conforms: false
+  evidence: No FAPI security profile; simple API-key auth.

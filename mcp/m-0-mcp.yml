@@ -1,0 +1,59 @@
+generated: '2026-07-20'
+method: derived
+status: candidate
+source: openapi/m-0-orchestration-openapi.json
+note: >-
+  No official hosted/remote MCP server was found (GitHub org m0-foundation has no
+  public repositories; no mcp.m0.org / registry entry located). The tools below are
+  a CANDIDATE mapping derived 1:1 from the Orchestration API operations, not a
+  published M0 server.
+server:
+  name: m0-orchestration
+  transport: candidate
+  auth: apiKey header x-api-key
+tools:
+- name: get_quote
+  operationId: quote_quote
+  method: POST
+  path: /quote
+  description: Get quotes for moving or converting assets across the M Liquidity Network.
+- name: get_permit_quote
+  operationId: permit_permitQuote
+  method: POST
+  path: /permit/quote
+  description: Get gasless EIP-2612 permit quotes (EVM only).
+- name: build_permit
+  operationId: permit_permitBuild
+  method: POST
+  path: /permit/build
+  description: Exchange signed permit recipes for executable transaction payloads.
+- name: list_supported_assets
+  operationId: quote_getSupportedAssets
+  method: GET
+  path: /supported-assets
+  description: List all assets supported for quotes.
+- name: list_orders
+  operationId: order_getOrders
+  method: GET
+  path: /orders
+  description: List orders with optional sender/status/chain filters (offset+limit).
+- name: get_order
+  operationId: order_getOrder
+  method: GET
+  path: /orders/{originChain}/{orderId}
+  description: Get full on-chain state plus indexer enrichment for a single order.
+- name: cancel_order
+  operationId: order_cancelOrder
+  method: POST
+  path: /orders/{originChain}/{orderId}/cancel
+  description: Build a cancel transaction for an existing limit order.
+- name: get_routes
+  operationId: topology_getRoutes
+  method: GET
+  path: /topology/routes
+  description: List known routes in the system with per-provider usage stats.
+- name: get_route_stats
+  operationId: topology_getRouteStats
+  method: GET
+  path: /topology/stats
+  description: Aggregated statistics about route usage.

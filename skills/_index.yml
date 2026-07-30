@@ -1,0 +1,14 @@
+generated: '2026-07-20'
+method: generated
+source: openapi/m-0-orchestration-openapi.json
+skills:
+- name: m-0-convert-stablecoin
+  file: m-0-convert-stablecoin.md
+  description: Quote, execute, and track a cross-chain stablecoin conversion on the M0 Orchestration API.
+  api: M0 Orchestration API
+  operations:
+  - quote_getSupportedAssets
+  - quote_quote
+  - order_getOrders
+  - order_getOrder
+  - order_cancelOrder

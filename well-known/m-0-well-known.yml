@@ -1,0 +1,57 @@
+generated: '2026-07-20'
+method: probed
+source: probe of base hosts m0.org, www.m0.org, docs.m0.org, gateway.m0.xyz
+note: >-
+  No .well-known documents were served. security.txt on m0.org redirects (301)
+  to www.m0.org/security.txt which returns an HTML 404 (Webflow), i.e. no real
+  security.txt. Absence recorded as valid data.
+probes:
+- host: m0.org
+  path: /.well-known/security.txt
+  status: 404
+  file: null
+- host: m0.org
+  path: /.well-known/openid-configuration
+  status: 404
+  file: null
+- host: m0.org
+  path: /.well-known/oauth-authorization-server
+  status: 404
+  file: null
+- host: m0.org
+  path: /.well-known/api-catalog
+  status: 404
+  file: null
+- host: m0.org
+  path: /.well-known/ai-plugin.json
+  status: 404
+  file: null
+- host: m0.org
+  path: /security.txt
+  status: 301
+  redirect: https://www.m0.org/security.txt
+  file: null
+- host: www.m0.org
+  path: /security.txt
+  status: 404
+  file: null
+- host: gateway.m0.xyz
+  path: /.well-known/security.txt
+  status: 403
+  file: null
+- host: gateway.m0.xyz
+  path: /.well-known/api-catalog
+  status: 403
+  file: null
+- host: docs.m0.org
+  path: /security.txt
+  status: 404
+  file: null
+- host: docs.m0.org
+  path: /ai-plugin.json
+  status: 404
+  file: null
+- host: docs.m0.org
+  path: /llms.txt
+  status: 200
+  file: ../llms/m-0-llms.txt
