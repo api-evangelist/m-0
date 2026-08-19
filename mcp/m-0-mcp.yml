@@ -2,11 +2,9 @@ generated: '2026-07-20'
 method: derived
 status: candidate
 source: openapi/m-0-orchestration-openapi.json
-note: >-
-  No official hosted/remote MCP server was found (GitHub org m0-foundation has no
-  public repositories; no mcp.m0.org / registry entry located). The tools below are
-  a CANDIDATE mapping derived 1:1 from the Orchestration API operations, not a
-  published M0 server.
+note: No official hosted/remote MCP server was found (GitHub org m0-foundation has no public repositories;
+  no mcp.m0.org / registry entry located). The tools below are a CANDIDATE mapping derived 1:1 from the
+  Orchestration API operations, not a published M0 server.
 server:
   name: m0-orchestration
   transport: candidate
@@ -57,3 +55,9 @@ tools:
   method: GET
   path: /topology/stats
   description: Aggregated statistics about route usage.
+deployment:
+  mode: none
+  verified: derived
+  tools: 9
+  checked: '2026-08-12'
+  source: catalog MCP census

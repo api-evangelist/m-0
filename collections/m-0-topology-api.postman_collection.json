@@ -1,0 +1,294 @@
+{
+  "item": [
+    {
+      "id": "7db7a3fd-69a8-4536-9c12-55a6b11e2099",
+      "name": "Topology",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b30552e6-b490-44e0-8090-0bd657658862",
+          "name": "topology get Routes",
+          "request": {
+            "name": "topology get Routes",
+            "description": {
+              "content": "Returns all known routes in the system. Routes are seeded from the\nstatic asset graph on startup and enriched by live quote traffic.\nThis is a read-only view of routing knowledge — not the routing\nlogic itself. Use lastUsed and totalQuoteCount to gauge confidence.\n\n**Error responses**\n\nErrors return `commons.ErrorBody` (`{ code, message, requestId }`);\nbranch on `code`, not the HTTP status.\n\n| Status | `code`               | When                                                                       |\n| ------ | -------------------- | -------------------------------------------------------------------------- |\n| 400    | `BadTopologyRequest` | Invalid query params: only one of `sourceChain` / `sourceAddress`, or an unknown asset. |",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "topology",
+                "routes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sourceChain",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sourceAddress",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "73b9fda1-1595-40d2-8095-febae5c822e0",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "topology",
+                    "routes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sourceChain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sourceAddress",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"source\": {\n      \"chain\": \"<string>\",\n      \"address\": \"string\"\n    },\n    \"destination\": {\n      \"chain\": \"<string>\",\n      \"address\": \"string\"\n    },\n    \"providers\": [\n      {\n        \"provider\": \"uniswap-v3\",\n        \"quoteCount\": 6395,\n        \"lastUsed\": \"1986-05-25T09:05:01.947Z\"\n      },\n      {\n        \"provider\": \"m-hyperlane-portal\",\n        \"quoteCount\": 5237,\n        \"lastUsed\": \"1964-07-01T04:16:10.153Z\"\n      }\n    ],\n    \"totalQuoteCount\": 2170,\n    \"lastUsed\": \"2014-02-18T23:48:49.208Z\"\n  },\n  {\n    \"source\": {\n      \"chain\": \"<string>\",\n      \"address\": \"string\"\n    },\n    \"destination\": {\n      \"chain\": \"<string>\",\n      \"address\": \"string\"\n    },\n    \"providers\": [\n      {\n        \"provider\": \"m-wormhole-portal\",\n        \"quoteCount\": 6821,\n        \"lastUsed\": \"1961-10-16T11:09:50.617Z\"\n      },\n      {\n        \"provider\": \"jupiter\",\n        \"quoteCount\": 9503,\n        \"lastUsed\": \"1987-11-12T06:59:06.162Z\"\n      }\n    ],\n    \"totalQuoteCount\": 4432,\n    \"lastUsed\": \"1949-09-09T12:06:30.715Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "110ff3dc-c90b-4c2b-b440-09de6bfd2b61",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "topology",
+                    "routes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sourceChain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sourceAddress",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"QuoteError\",\n  \"message\": \"string\",\n  \"requestId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d3e94d00-c1cd-43d6-9035-fac05687ef44",
+          "name": "topology get Route Stats",
+          "request": {
+            "name": "topology get Route Stats",
+            "description": {
+              "content": "Aggregated statistics about route usage",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "topology",
+                "stats"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6335ec53-2dbf-474f-b3d7-4f95d6fe9599",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "topology",
+                    "stats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"totalRoutes\": 3568,\n  \"activeRoutes\": 7326,\n  \"hottestPaths\": [\n    {\n      \"source\": {\n        \"chain\": \"<string>\",\n        \"address\": \"string\"\n      },\n      \"destination\": {\n        \"chain\": \"<string>\",\n        \"address\": \"string\"\n      },\n      \"providers\": [\n        {\n          \"provider\": \"mayan-swift\",\n          \"quoteCount\": 9645,\n          \"lastUsed\": \"2000-10-04T23:12:54.844Z\"\n        },\n        {\n          \"provider\": \"limit-order\",\n          \"quoteCount\": 5016,\n          \"lastUsed\": \"2018-03-27T21:52:03.451Z\"\n        }\n      ],\n      \"totalQuoteCount\": 8607,\n      \"lastUsed\": \"2005-08-03T17:36:08.102Z\"\n    },\n    {\n      \"source\": {\n        \"chain\": \"<string>\",\n        \"address\": \"string\"\n      },\n      \"destination\": {\n        \"chain\": \"<string>\",\n        \"address\": \"string\"\n      },\n      \"providers\": [\n        {\n          \"provider\": \"mayan-swift\",\n          \"quoteCount\": 2600,\n          \"lastUsed\": \"2020-12-17T03:33:28.375Z\"\n        },\n        {\n          \"provider\": \"m-hyperlane-portal\",\n          \"quoteCount\": 7986,\n          \"lastUsed\": \"2017-09-11T12:13:18.709Z\"\n        }\n      ],\n      \"totalQuoteCount\": 9207,\n      \"lastUsed\": \"1993-01-19T17:39:28.400Z\"\n    }\n  ],\n  \"topSenders\": [\n    {\n      \"address\": \"string\",\n      \"count\": 1421\n    },\n    {\n      \"address\": \"string\",\n      \"count\": 1287\n    }\n  ],\n  \"topRecipients\": [\n    {\n      \"address\": \"string\",\n      \"count\": 9391\n    },\n    {\n      \"address\": \"string\",\n      \"count\": 5524\n    }\n  ],\n  \"collectingSince\": \"2013-11-08T08:29:29.879Z\",\n  \"lastUpdated\": \"1962-07-27T15:57:08.299Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://gateway.m0.xyz/v1/orchestration",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "348e2bdc-86cd-4e93-83e2-42378e36ade1",
+    "name": "liquidity-api Order Topology API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "This API provides quotes for moving and converting between M extensions and other stablecoins",
+      "type": "text/plain"
+    }
+  }
+}
